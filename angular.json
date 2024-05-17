@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "qrsphere": {
+    "greenink": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/qrsphere",
+            "outputPath": "dist/greenink",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -34,8 +34,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "4mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -57,10 +57,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "qrsphere:build:production"
+              "buildTarget": "greenink:build:production"
             },
             "development": {
-              "buildTarget": "qrsphere:build:development"
+              "buildTarget": "greenink:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -68,7 +68,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "qrsphere:build"
+            "buildTarget": "greenink:build"
           }
         },
         "test": {

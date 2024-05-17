@@ -1,0 +1,30 @@
+mat-toolbar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#header {
+    background-color: var(--mat-app-background-color, transparent);
+}
+
+#headerMenu {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+#headerMenu button {
+    margin: 10px;
+}
+
+#headerTitle {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#headerTitle img {
+    width: 70%;
+}

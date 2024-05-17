@@ -1,0 +1,68 @@
+#dialogContent, h2 {
+    text-align: center;
+}
+
+#dialogContent {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: space-around;
+}
+
+#dialogDetails {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+#dialogDetails mat-form-field {
+    width: 100%;
+}
+
+#dialogActions {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+#qrURLWrapper {
+    position: relative;
+}
+
+#overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 300px;
+    width: 300px;
+    opacity: 0;
+    transition: .3s ease;
+    background-color: rgba(104, 104, 104, 0.459);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  #overlay:hover {
+    opacity: 1;
+  }
+
+  #overlay mat-icon {
+    color: rgb(0, 0, 0);
+    font-size: 100px;
+    height: auto;
+    width: auto;
+    text-align: center;
+}
+
+#qrCode {
+    margin-bottom: 10px;
+}
+
+#shortURL {
+    cursor: pointer;
+}

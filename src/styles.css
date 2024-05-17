@@ -1,1 +1,23 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap');
+@import "./app/greeninktheme.css";
+
+body {
+    font-family: "Unbounded", sans-serif;
+    background-color: var(--mat-app-background-color, transparent);
+}
+
+.mat-mdc-snack-bar-container {
+    &.info-snackbar {
+        --mdc-snackbar-container-color: #2C2933;
+        --mat-mdc-snack-bar-button-color: #fff;
+        --mdc-snackbar-supporting-text-color: #fff;
+    }
+}
+
+.mat-mdc-snack-bar-container {
+    &.error-snackbar {
+        --mdc-snackbar-container-color: #bd2b2b;
+        --mat-mdc-snack-bar-button-color: #fff;
+        --mdc-snackbar-supporting-text-color: #fff;
+    }
+}

@@ -1,0 +1,13 @@
+<div id="header"> 
+    <div id="headerMenu"> 
+        <button mat-button *ngIf="isLoggedIn" routerLink="/profile">Profile</button>
+        <button mat-button *ngIf="isLoggedIn" routerLink="/panel">Panel</button>
+        <button mat-stroked-button *ngIf="isLoggedIn" (click)="logout()">Logout</button>
+        <button mat-stroked-button *ngIf="!(isLoggedIn)" routerLink="/login">Login</button>
+        <button mat-raised-button color="primary" *ngIf="!(isLoggedIn)" routerLink="/signup">Sign Up</button>
+    </div>
+    <div id="headerTitle">
+        <a routerLink="/" mat-button><img src="../../assets/greenink-logo.png" /></a> 
+        <span class="tagline">{{ tagline }}</span>   
+    </div> 
+</div>

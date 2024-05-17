@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>Create a new code</h2>
+
+<div id="dialogContent" mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput [(ngModel)]="name" name="name"> 
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Route</mat-label>
+    <input matInput [(ngModel)]="route" name="route">
+  </mat-form-field>
+
+  <div *ngIf="data.subType != 'free'" id="colorPicker">
+    <mat-form-field>
+      <mat-label>Code Color</mat-label>
+      <input matInput [(ngModel)]="color">
+    </mat-form-field>
+    <ngx-colors ngx-colors-trigger [(ngModel)]="color"></ngx-colors>
+  </div>
+</div>
+
+<div id="dialogActions" mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="">Cancel</button>
+  <button mat-button (click)="createNewReroute()" cdkFocusInitial>Ok</button>
+</div>

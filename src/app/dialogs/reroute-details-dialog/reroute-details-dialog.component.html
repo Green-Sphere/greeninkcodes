@@ -1,0 +1,34 @@
+<h2 mat-dialog-title>{{ reroute.name }}</h2>
+<div id="dialogContent" mat-dialog-content>
+    <div id="qrURLWrapper">
+        <div id="overlay" (click)="saveImage()"><mat-icon>save_alt</mat-icon></div>
+        <div id="qrCode" #canvas></div>
+        <div id="shortURL" [matTooltip]="'Click to copy'" (click)="copyURL()">
+            {{ shortURL }}
+        </div>
+    </div>
+    <div id="dialogDetails">
+        <div>
+            <mat-form-field>
+                <mat-label>Name</mat-label>
+        <input matInput [(ngModel)]="reroute.name" />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+            <mat-label>Route</mat-label>
+        <input matInput [(ngModel)]="reroute.route" />
+        </mat-form-field>
+      </div>
+        <div>
+            <b>Count:</b> {{ reroute.triggered }}
+        </div>
+    </div>
+    
+</div>
+<div id="dialogActions" mat-dialog-actions>
+    <button *ngIf="confirmDelete" mat-button color="warn" [disabled]="saving" (click)="deleteReroute()">Confirm Delete</button>
+    <button *ngIf="!confirmDelete" mat-button color="warn" [disabled]="saving" (click)="confirmDelete = true">Delete</button>
+    <button mat-button [disabled]="saving" [mat-dialog-close]="">Close</button>
+    <button mat-raised-button color="primary" [disabled]="saving" (click)="updateReroute()">Save</button>
+</div>

@@ -1,0 +1,39 @@
+<div class="login-page">
+  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center" [(selectedIndex)]="tabIndex">
+    <mat-tab label="Log In">
+      <form class="loginForm">
+        <mat-form-field>
+          <input matInput [(ngModel)]="email" name="email" placeholder="Email" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput [(ngModel)]="password" name="password" type="password" placeholder="Password" />
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="button" (click)="login()">
+          Log In
+        </button>
+      </form>
+    </mat-tab>
+
+    <mat-tab label="Sign Up">
+      <form class="loginForm">
+        <mat-form-field>
+          <input matInput [(ngModel)]="name" name="name" placeholder="Full name" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput [(ngModel)]="email" name="email" type="email" placeholder="Email" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput [(ngModel)]="password" name="password" type="password" placeholder="Password" />
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="button" (click)="signup()">
+          Sign Up
+        </button>
+      </form>
+    </mat-tab>
+  </mat-tab-group>
+</div>

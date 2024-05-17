@@ -1,0 +1,13 @@
+.mat-mdc-row {
+  cursor: pointer;
+}
+
+.mat-fab {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+mat-table {
+  display: table;
+}

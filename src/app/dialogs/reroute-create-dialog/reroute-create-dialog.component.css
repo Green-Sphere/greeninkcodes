@@ -1,0 +1,29 @@
+h2 {
+    text-align: center;
+}
+
+#dialogContent {
+    text-align: center;
+}
+
+#dialogContent mat-form-field {
+    width: 80%;
+}
+
+#dialogActions {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+#colorPicker {
+    display: flex;
+    width: 80%;
+    margin: 0 auto;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#colorPicker mat-form-field {
+    width: 60%;
+}

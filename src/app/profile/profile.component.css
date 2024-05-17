@@ -1,0 +1,52 @@
+#userInfo, .portalBtn{
+    text-align: center;
+}
+
+.pricing-table {
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+}
+
+.pricing-table mat-card {
+    flex: 1;
+    margin: 20px;
+    text-align: center;
+}
+
+.pricing-table mat-card-title {
+    margin-bottom: 10px;
+}
+.price {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #50D139;
+    color: white;
+}
+
+.price h2 {
+    margin: 0;
+}
+
+.pricing-table mat-card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+::ng-deep .mat-mdc-card-header-text {
+    margin: 0 auto;
+}
+
+@media only screen and (max-width: 600px) {
+    .pricing-table {
+        flex-wrap: wrap;
+    }
+}
