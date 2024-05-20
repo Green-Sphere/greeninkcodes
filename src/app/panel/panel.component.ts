@@ -85,8 +85,9 @@ export class PanelComponent implements OnInit {
   async setUserSubscription(){
     if (this.user) {
       let subscription = await this.stripe.getCustomerSubscription(this.user?.user_metadata['customer_id']);
-      console.log(subscription);
+
       const planId = subscription?.data.length ? subscription.data[0].items.data[0].plan.id : '';
+
       this.subType = planId === 'price_1OrssyCs0P2ff3AuKCSy4Ud0'? 'basic' : planId === 'price_1OrsuECs0P2ff3AuSUpOEDG9'? 'unlimited' : 'free';
       this.getURLs();
       if(this.subType == 'free') { 

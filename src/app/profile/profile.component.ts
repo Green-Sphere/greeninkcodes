@@ -8,6 +8,7 @@ import { SupabaseService } from '../services/supabase.service';
 import { User } from '@supabase/supabase-js';
 import { StripeService } from '../services/stripe.service';
 import { LoadingComponent } from '../loading/loading.component';
+import { DynamicScriptLoaderService } from '../services/dynamic-script-loader.service';
 
 @Component({
   selector: 'app-profile',
@@ -24,7 +25,7 @@ export class ProfileComponent {
   user: User | null | undefined;
   loading = true;
 
-  constructor(private supabase: SupabaseService, private stripe: StripeService) { }
+  constructor(private supabase: SupabaseService, private stripe: StripeService, private dynamicScriptLoader: DynamicScriptLoaderService) { }
 
   async ngOnInit() {
     this.user = await this.supabase.getLoggedInUser();
@@ -42,5 +43,12 @@ export class ProfileComponent {
 
   sendToCustomerPortal(){
     this.stripe.redirectToPortal(this.user?.user_metadata['customer_id']);
+  }
+
+  createChatDiv(){
+    this.dynamicScriptLoader.load('smallchat').then(data => {
+      const loadEvent = new Event('load');
+      window.dispatchEvent(loadEvent);
+    }).catch(error => console.log(error));
   }
 }
