@@ -36,6 +36,7 @@
     (click)="rowClicked(row.id)"
   ></tr>
 </mat-table>
+
 <button *ngIf="!loading" class="mat-fab" mat-fab color="primary" (click)="addReroute()" [disabled]="preventCreate" [matTooltip]="preventCreateReason">
   <mat-icon>add</mat-icon>
 </button>
