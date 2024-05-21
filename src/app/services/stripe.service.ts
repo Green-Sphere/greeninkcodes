@@ -16,17 +16,17 @@ export class StripeService {
     return this.http.get<StripeSubscription>(`${this.apiURL}/customer-subscription?email=${email}`);
   }
 
-  redirectToCheckout(plan: string, userId: string) {
+  redirectToCheckout(plan: string, email: string) {
     this.http
-      .get<StripeSession>(`${this.apiURL}/redirect-to-checkout?plan=${plan}&userId=${userId}`).pipe()
+      .get<StripeSession>(`${this.apiURL}/redirect-to-checkout?plan=${plan}&email=${email}`).pipe()
       .subscribe(session => {
         window.location.href = session.url;
       });
   }
 
-  redirectToPortal(userId: string) {
+  redirectToPortal(email: string) {
     this.http
-      .get<StripeSession>(`${this.apiURL}/redirect-to-portal?userId=${userId}`)
+      .get<StripeSession>(`${this.apiURL}/redirect-to-portal?email=${email}`)
       .subscribe(session => {
         if(session.url) window.location.href = session.url;
       });

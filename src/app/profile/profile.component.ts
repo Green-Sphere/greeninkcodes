@@ -39,12 +39,12 @@ export class ProfileComponent {
     this.loading = false;
   }
 
-  sendToCheckout(plan: string){
-    this.stripe.redirectToCheckout(plan, this.user?.user_metadata['customer_id']);
+  sendToCheckout(plan: string) {
+    this.stripe.redirectToCheckout(plan, this.user?.email || '');
   }
 
   sendToCustomerPortal(){
-    this.stripe.redirectToPortal(this.user?.user_metadata['customer_id']);
+    this.stripe.redirectToPortal(this.user?.email || '');
   }
 
   createChatDiv(){
