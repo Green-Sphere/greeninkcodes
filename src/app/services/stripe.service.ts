@@ -5,7 +5,7 @@ import Stripe from 'stripe';
   providedIn: 'root'
 })
 export class StripeService {
-  stripe = new Stripe('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');
+  stripe = new Stripe(process.env['STRIPE_KEY'] ?? "");
   constructor() {} 
   
   ngOnInit() {
