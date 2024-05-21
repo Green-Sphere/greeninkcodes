@@ -1,6 +1,6 @@
 <app-loading *ngIf="loading"></app-loading>
 
-<h4 *ngIf="!loading" style="text-align: center;">{{preventCreateReason}}</h4>
+<h4 *ngIf="!loading && preventCreateReroute()" style="text-align: center;">{{preventCreateReason}}</h4>
 <mat-table *ngIf="!loading" [dataSource]="reroutes" class="mat-elevation-z8">
   <!--- Note that these columns can be defined in any order.
         The actual rendered columns are set as a property on the row definition" -->
@@ -37,6 +37,6 @@
   ></tr>
 </mat-table>
 
-<button *ngIf="!loading" class="mat-fab" mat-fab color="primary" (click)="addReroute()" [disabled]="preventCreate" [matTooltip]="preventCreateReason">
+<button *ngIf="!loading" class="mat-fab" mat-fab color="primary" (click)="addReroute()" [disabled]="preventCreateReroute()" [matTooltip]="preventCreateReason">
   <mat-icon>add</mat-icon>
 </button>
