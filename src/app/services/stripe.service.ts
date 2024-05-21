@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -12,8 +12,8 @@ export class StripeService {
     return this.http.post(`${this.apiURL}/create-customer`, { name, email });
   }
 
-  getCustomerSubscription(customerId: string) {
-    return this.http.get(`${this.apiURL}/customer-subscription?customerId=${customerId}`);
+  getCustomerSubscription(email: string) {
+    return this.http.get<StripeSubscription>(`${this.apiURL}/customer-subscription?email=${email}`);
   }
 
   redirectToCheckout(plan: string, userId: string) {
@@ -24,8 +24,8 @@ export class StripeService {
       });
   }
 
-  async redirectToPortal(userId: string) {
-    await this.http
+  redirectToPortal(userId: string) {
+    this.http
       .get<StripeSession>(`${this.apiURL}/redirect-to-portal?userId=${userId}`)
       .subscribe(session => {
         if(session.url) window.location.href = session.url;
@@ -35,4 +35,17 @@ export class StripeService {
 
 interface StripeSession {
   url: string;
+}
+
+export interface StripeSubscription {
+  data: StripeData[];
+}
+
+interface StripeData {
+  plan: Plan;
+}
+
+interface Plan {
+  id: string;
+  active: boolean;
 }
