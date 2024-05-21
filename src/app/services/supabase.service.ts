@@ -30,19 +30,20 @@ export class SupabaseService {
 
   async signup(name: string, email: string, password: string) {
     return new Promise<void>(async (resolve, reject) => {
-      const customer = await this.stripe.createCustomer(name, email);
-
-      const { data, error } = await supabase.auth.signUp({
-        email: email,
-        password: password,
-        options: {
-          data: {
-            customer_id: customer?.id
+      const customer = await this.stripe.createCustomer(name, email)
+      .subscribe(async customer => {
+        const { data, error } = await supabase.auth.signUp({
+          email: email,
+          password: password,
+          options: {
+            data: {
+              //customer_id: customer?.id
+            }
           }
-        }
-      });
-      if (error) reject(error);
-      if (data) resolve();
+        });
+        if (error) reject(error);
+        if (data) resolve();
+      });      
     });
   }
 

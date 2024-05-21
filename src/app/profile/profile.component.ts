@@ -30,9 +30,13 @@ export class ProfileComponent {
   async ngOnInit() {
     this.user = await this.supabase.getLoggedInUser();
     if (this.user) {
-      let subscription = await this.stripe.getCustomerSubscription(this.user?.user_metadata['customer_id']);
-      const planId = subscription?.data[0]?.items?.data[0]?.plan?.id || '';
-      this.subType = planId === 'price_1OrssyCs0P2ff3AuKCSy4Ud0'? 'basic' : planId === 'price_1OrsuECs0P2ff3AuSUpOEDG9'? 'unlimited' : 'free';
+      if (this.user) {
+        this.stripe.getCustomerSubscription(this.user?.user_metadata['customer_id'])
+        .subscribe(subscription => {
+          const planId = /* subscription?.data[0]?.items?.data[0]?.plan?.id ||  */'';
+          this.subType =/*  planId === 'price_1OrssyCs0P2ff3AuKCSy4Ud0'? 'basic' : planId === 'price_1OrsuECs0P2ff3AuSUpOEDG9'? 'unlimited' :  */'free';
+        });
+      }
     }
      this.loading = false;
   }

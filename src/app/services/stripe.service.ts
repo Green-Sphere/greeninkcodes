@@ -1,71 +1,38 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import Stripe from 'stripe';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StripeService {
-  stripe = new Stripe(""); //process.env['STRIPE_KEY'] ?? 
-  constructor() {} 
-  
-  ngOnInit() {
+  apiURL : string = "https://grn.ink";
+  constructor(private http: HttpClient) {}
+
+  createCustomer(name: string, email: string) {
+    return this.http.post(`${this.apiURL}/create-customer`, { name, email });
   }
 
-  async createCustomer(name: string, email: string) {
-    const customer = await this.stripe.customers.create({
-      name: name,
-      email: email,
-    }).catch((e) => {
-      console.log(e);
-    });
-
-    return customer;
+  getCustomerSubscription(customerId: string) {
+    return this.http.get(`${this.apiURL}/customer-subscription?customerId=${customerId}`);
   }
 
-  async getCustomerSubscription(customerId: string) {
-    const subscription = await this.stripe.subscriptions.list({customer: customerId}).catch((e) => {
-      console.log(e);
-    });
-
-    return subscription;
-  }
-
-  async createCheckoutSession(customerId: string, planPrice: string) {
-    const params: Stripe.Checkout.SessionCreateParams={
-      customer: customerId,
-      success_url: 'https://greeninkcodes.com/profile',
-      mode: 'subscription',
-      allow_promotion_codes: true,
-      line_items: [{
-        price: planPrice,
-        quantity: 1,
-      }]
-    };
-    const session = await this.stripe.checkout.sessions.create(params);
-    return session;
-  }
-
-  async redirectToCheckout(plan: string, userId: string) {
-    let planPrice = '';
-    if (plan === 'basic') {
-      planPrice = 'price_1OrssyCs0P2ff3AuKCSy4Ud0';
-    } else if (plan === 'unlimited') {
-      planPrice = 'price_1OrsuECs0P2ff3AuSUpOEDG9';
-    }
-
-    const session = await this.createCheckoutSession(userId, planPrice);
-
-    if(session.url) window.location.href = session.url;
+  redirectToCheckout(plan: string, userId: string) {
+    this.http
+      .get<StripeSession>(`${this.apiURL}/redirect-to-checkout?plan=${plan}&userId=${userId}`).pipe()
+      .subscribe(session => {
+        window.location.href = session.url;
+      });
   }
 
   async redirectToPortal(userId: string) {
-    const session = await this.stripe.billingPortal.sessions.create({
-      customer: userId,
-      return_url: 'https://greeninkcodes.com/profile',
-    });
-    if(session.url) window.location.href = session.url;
+    await this.http
+      .get<StripeSession>(`${this.apiURL}/redirect-to-portal?userId=${userId}`)
+      .subscribe(session => {
+        if(session.url) window.location.href = session.url;
+      });
   }
-
 }
 
-//enwDADa4yZ3rbcK
+interface StripeSession {
+  url: string;
+}
