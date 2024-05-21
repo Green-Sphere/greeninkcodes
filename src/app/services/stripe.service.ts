@@ -5,7 +5,7 @@ import Stripe from 'stripe';
   providedIn: 'root'
 })
 export class StripeService {
-  stripe = new Stripe(process.env['STRIPE_KEY'] ?? "");
+  stripe = new Stripe(""); //process.env['STRIPE_KEY'] ?? 
   constructor() {} 
   
   ngOnInit() {
