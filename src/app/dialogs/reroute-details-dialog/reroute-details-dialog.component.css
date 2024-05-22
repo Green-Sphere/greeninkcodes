@@ -35,8 +35,8 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 500px;
-    width: 500px;
+    width: 100%;
+    height: 90%;
     opacity: 0;
     transition: .3s ease;
     background-color: rgba(104, 104, 104, 0.459);
@@ -65,4 +65,12 @@
 
 #shortURL {
     cursor: pointer;
+}
+
+@media only screen and (max-width: 1000px) {
+    #dialogContent {
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 50px;
+    }
 }

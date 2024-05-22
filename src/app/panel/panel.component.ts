@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Inject, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SupabaseService } from '../services/supabase.service';
 import { MatIcon } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -54,9 +54,11 @@ export class PanelComponent implements OnInit {
   rowClicked(id: number) {
     const dialogRef = this.dialog.open(RerouteDetailsDialogComponent, {
       width: '60%',
+      minWidth: '500px',
       data: {
         id: id,
-        subType: this.subType
+        subType: this.subType,
+        userId: this.user?.id
       },
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -68,10 +70,10 @@ export class PanelComponent implements OnInit {
 
   addReroute() {
     const dialogRef = this.dialog.open(RerouteCreateDialogComponent, {
-      height: '30%',
-      width: '25%',
+      width: '500px',
       data: {
-        subType: this.subType
+        subType: this.subType,
+        userId: this.user?.id
       }
     });
     dialogRef.afterClosed().subscribe(result => {

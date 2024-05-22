@@ -32,7 +32,7 @@ export class RerouteDetailsDialogComponent {
   confirmDelete: boolean = false;
   
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: {id: string, subType: string}, 
+    @Inject(MAT_DIALOG_DATA) public data: {id: string, subType: string, userId: number}, 
     private supabase: SupabaseService, 
     private qrcode: NgxQrcodeStylingService, 
     private dialogRef: MatDialogRef<RerouteDetailsDialogComponent>,
@@ -47,9 +47,10 @@ export class RerouteDetailsDialogComponent {
       this.shortURL = "https://grn.ink/g/" + this.reroute.id;
 
       this.config = {
-        width: 500,
-        height: 500,
-        image: this.data.subType == 'basic' ? '../../assets/greenink.png' : this.reroute.image ?? '' ,
+        /* width: 500,
+        height: 500, */
+        image: this.data.subType == 'free' ? '../../assets/greenink.png' 
+              : this.reroute.icon ?? '' ,
         data: this.shortURL,
         margin: 5,
         dotsOptions: {

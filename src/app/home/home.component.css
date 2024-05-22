@@ -65,6 +65,10 @@
     flex: 4;
 }
 
+@media only screen and (max-width: 1000px) and (min-width: 600px) {
+
+}
+
 @media only screen and (max-width: 600px) {
     #intro {
         flex-direction: column;
@@ -74,9 +78,13 @@
         padding: 5vw;
     }
     .featureCard {
+        width: 100%;
         text-align: center;
         align-items: center;
         flex-direction: column;
         padding: 15px;
+    }
+    .pricing-card{
+        width: 80%;
     }
 }

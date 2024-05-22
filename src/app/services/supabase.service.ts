@@ -49,15 +49,33 @@ export class SupabaseService {
     });
   }
 
-  async createReroute(name: string, url: string, color: string = '', icon: any = null) {
+  async uploadImage(file: File, userId: number, iconId: number) {
+    return new Promise<void>(async (resolve, reject) => {
+      const { data, error } = await supabase
+      .storage
+      .from('qr-icons')
+      .upload(`${userId}/${iconId}`, file, {
+        upsert: true
+      });
+      if (error) reject(error);
+      if (data) resolve();
+    });
+  }
+
+  async createReroute(name: string, url: string, color: string = '', icon: File | undefined = undefined) {
     return new Promise<string>(async (resolve, reject) => {
       const { data, error } = await supabase
       .from('reroutes')
-      .insert({ name: name, route: url, color: color, icon: icon })
+      .insert({ name: name, route: url, color: color })
       .select();
 
       if (error) reject(error);
-      if(data) resolve(data[0].id);
+      if(data) {
+        if(icon) {
+          await this.uploadImage(icon, data[0].owner, data[0].id);
+        }
+        resolve(data[0].id);
+      }
     });
   }
 
@@ -79,13 +97,34 @@ export class SupabaseService {
 
   async getReroute(id: string) {
     return new Promise(async (resolve, reject) => {
+      const currentUser = await this.getLoggedInUser();
+      if (!currentUser) {reject('Not logged in'); return;};
+
       const { data, error } = await supabase
         .from('reroutes')
         .select()
         .eq('id', id);
 
       if (error) reject(error);
-      if (data) resolve(data);
+      if (data) {
+        data[0].icon = await this.getRerouteIcon(id);
+        console.log(data[0]);
+        resolve(data);
+      }
+    });
+  }
+
+  async getRerouteIcon(id: string) {
+    return new Promise(async (resolve, reject) => {
+      const currentUser = await this.getLoggedInUser();
+      if (!currentUser) {reject('Not logged in'); return;};
+      const { data } = await supabase.storage.from('qr-icons')
+          .createSignedUrl(`${currentUser.id}/${id}`, 60);
+      if (data) {
+        resolve(data.signedUrl);
+      } else {
+        resolve('');
+      }
     });
   }
 

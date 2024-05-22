@@ -18,6 +18,31 @@
     </mat-form-field>
     <ngx-colors ngx-colors-trigger [(ngModel)]="color"></ngx-colors>
   </div>
+
+  <h3 *ngIf="data.subType == 'unlimited'">Image</h3>
+  <div *ngIf="data.subType == 'unlimited' && !imageFile" id="imageUpload" 
+    ngClass="{{dragAreaClass}}"
+    draggable="true"
+  >
+    <input type="file" #fileUpload (change)="fileBrowseHandler($event)">
+    <mat-icon>upload</mat-icon>
+    <h3>Drag and drop file here</h3>
+    <h3>or</h3>
+    <button mat-raised-button color="primary" (click)="fileUpload.click()">Browse for File</button>
+  </div>
+
+  <div *ngIf="imageFile" class="files-list">
+    <div class="single-file">
+      <div class="info">
+        <h4 class="name">
+          {{ imageFile.name }}
+        </h4>
+        <p class="size">
+          {{ formatBytes(imageFile.size) }}
+        </p>
+      </div>
+      <mat-icon class="delete" (click)="deleteFile()">delete</mat-icon>
+    </div>
 </div>
 
 <div id="dialogActions" mat-dialog-actions>
