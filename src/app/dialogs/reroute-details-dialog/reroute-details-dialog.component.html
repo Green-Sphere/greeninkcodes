@@ -1,6 +1,6 @@
 <h2 mat-dialog-title>{{ reroute.name }}</h2>
 <mat-dialog-content id="dialogContent">
-    <app-loading *ngIf="loading"></app-loading>
+    <app-loading *ngIf="!loading"></app-loading>
     <div id="qrURLWrapper">
         <div id="overlay" (click)="saveImage()"><mat-icon>save_alt</mat-icon></div>
         <div id="qrCode" #canvas></div>

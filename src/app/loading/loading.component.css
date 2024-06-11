@@ -3,3 +3,25 @@
     justify-content: center;
     align-items: center;
 }
+
+.spinner-img {
+    height: 100px;
+    width: 100px;
+    animation: loading-spinner-img 3s linear infinite;
+}
+  
+  
+@keyframes loading-spinner-img {
+    0%, 100% {
+      animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
+    }
+    0% {
+      transform: rotateZ(0deg);
+    }
+    50% {
+      transform: rotateZ(-360deg);
+    }
+    100% {
+      transform: rotateZ(-720deg);
+    }
+  }
