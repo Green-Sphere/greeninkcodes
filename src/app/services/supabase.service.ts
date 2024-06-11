@@ -88,7 +88,8 @@ export class SupabaseService {
       const { data, error } = await supabase
         .from('reroutes')
         .select()
-        .eq('owner', currentUser.id);
+        .eq('owner', currentUser.id)
+        .eq('deleted', false);
 
       if (error) reject(error);
       if (data) resolve(data);
@@ -145,7 +146,7 @@ export class SupabaseService {
     return new Promise<void>(async (resolve, reject) => {
       const { error } = await supabase
         .from('reroutes')
-        .delete()
+        .update({ deleted: true })
         .eq('id', id);
       if (error) reject(error); 
       else resolve();

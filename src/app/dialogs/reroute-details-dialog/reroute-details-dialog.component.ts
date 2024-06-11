@@ -1,5 +1,9 @@
 import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogClose} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA,
+  MatDialogTitle,
+  MatDialogContent,
+  MatDialogActions,
+  MatDialogClose,} from '@angular/material/dialog';
 import { SupabaseService } from '../../services/supabase.service';
 import { Options, NgxQrcodeStylingModule, NgxQrcodeStylingService } from 'ngx-qrcode-styling';
 import { MatButton } from '@angular/material/button';
@@ -12,11 +16,12 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { CommonModule } from '@angular/common'; 
+import { LoadingComponent } from '../../loading/loading.component';
 
 @Component({
   selector: 'app-reroute-details-dialog',
   standalone: true,
-  imports: [NgxQrcodeStylingModule, MatDialogClose, MatButton, MatInput, FormsModule, MatFormField, MatLabel, MatIcon, MatTooltip, CommonModule],
+  imports: [NgxQrcodeStylingModule, MatDialogClose, MatButton, MatInput, FormsModule, MatFormField, MatLabel, MatIcon, MatTooltip, CommonModule, MatDialogTitle, MatDialogContent, MatDialogActions, LoadingComponent],
   templateUrl: './reroute-details-dialog.component.html',
   styleUrl: './reroute-details-dialog.component.css'
 })
@@ -40,9 +45,10 @@ export class RerouteDetailsDialogComponent {
   ) { }
   
   ngOnInit() {
+    this.loading = true;
     const rerouteId = this.data.id;
     
-    this.supabase.getReroute(rerouteId).then((reroute: any) => {
+    this.supabase.getReroute(rerouteId).then(async (reroute: any) => {
       this.reroute = reroute[0];
       this.shortURL = "https://grn.ink/g/" + this.reroute.id;
 
@@ -58,7 +64,7 @@ export class RerouteDetailsDialogComponent {
           type: 'rounded'
         }
       }
-      this.qrcode.create(this.config, this.canvas.nativeElement)
+      await this.qrcode.create(this.config, this.canvas.nativeElement)
       this.loading = false;
     });
   }

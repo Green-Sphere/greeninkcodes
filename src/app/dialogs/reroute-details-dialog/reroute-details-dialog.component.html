@@ -1,5 +1,6 @@
 <h2 mat-dialog-title>{{ reroute.name }}</h2>
-<div id="dialogContent" mat-dialog-content>
+<mat-dialog-content id="dialogContent">
+    <app-loading *ngIf="loading"></app-loading>
     <div id="qrURLWrapper">
         <div id="overlay" (click)="saveImage()"><mat-icon>save_alt</mat-icon></div>
         <div id="qrCode" #canvas></div>
@@ -25,10 +26,14 @@
         </div>
     </div>
     
-</div>
-<div id="dialogActions" mat-dialog-actions>
-    <button *ngIf="confirmDelete" mat-button color="warn" [disabled]="saving" (click)="deleteReroute()">Confirm Delete</button>
-    <button *ngIf="!confirmDelete" mat-button color="warn" [disabled]="saving" (click)="confirmDelete = true">Delete</button>
-    <button mat-button [disabled]="saving" [mat-dialog-close]="">Close</button>
-    <button mat-raised-button color="primary" [disabled]="saving" (click)="updateReroute()">Save</button>
-</div>
+</mat-dialog-content>
+<mat-dialog-actions *ngIf="!loading" id="dialogActions">
+    <div id="deleteButtons">
+        <button *ngIf="confirmDelete" mat-button color="warn" [disabled]="saving" (click)="deleteReroute()">Confirm Delete</button>
+        <button *ngIf="!confirmDelete" mat-button color="warn" [disabled]="saving" (click)="confirmDelete = true">Delete</button>
+    </div>
+    <div id="otherButtons">
+        <button mat-button [disabled]="saving" [mat-dialog-close]="">Close</button>
+        <button mat-raised-button color="primary" [disabled]="saving" (click)="updateReroute()">Save</button>
+    </div>
+</mat-dialog-actions>
