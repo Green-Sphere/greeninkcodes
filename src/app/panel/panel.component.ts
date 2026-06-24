@@ -57,7 +57,7 @@ export class PanelComponent implements OnInit {
   user: User | null | undefined;
   preventCreate: boolean = true;
   preventCreateReason: string = 'Loading...';
-  loading = true;
+  loading = false;
 
   constructor(
     private supabase: SupabaseService,
@@ -77,14 +77,11 @@ export class PanelComponent implements OnInit {
   async getURLs() {
     this.loading = true;
     try {
-      console.log('getURLs called');
       const userURLs = await this.supabase.getUserURLs();
-      console.log('userURLs response:', userURLs);
       this.reroutes.data = userURLs as unknown[];
     } catch (e) {
       console.error('getURLs error:', e);
     } finally {
-      console.log('setting loading to false');
       this.loading = false;
     }
   }
