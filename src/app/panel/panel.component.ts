@@ -75,10 +75,18 @@ export class PanelComponent implements OnInit {
   }
 
   async getURLs() {
-    const userURLs = await this.supabase.getUserURLs();
-
-    this.reroutes.data = userURLs as unknown[];
-    this.loading = false;
+    this.loading = true;
+    try {
+      console.log('getURLs called');
+      const userURLs = await this.supabase.getUserURLs();
+      console.log('userURLs response:', userURLs);
+      this.reroutes.data = userURLs as unknown[];
+    } catch (e) {
+      console.error('getURLs error:', e);
+    } finally {
+      console.log('setting loading to false');
+      this.loading = false;
+    }
   }
 
   rowClicked(id: number) {
