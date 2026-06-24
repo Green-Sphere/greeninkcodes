@@ -149,6 +149,26 @@ export class PanelComponent implements OnInit {
     }
   }
 
+  totalScans(): number {
+    return (this.reroutes.data as any[]).reduce(
+      (sum, r) => sum + (r.triggered || 0),
+      0,
+    );
+  }
+
+  maxReroutes(): string {
+    switch (this.subType) {
+      case 'free':
+        return '1';
+      case 'basic':
+        return '5';
+      case 'unlimited':
+        return '∞';
+      default:
+        return '—';
+    }
+  }
+
   preventCreateReroute(): boolean {
     switch (this.subType) {
       case 'free':
