@@ -1,16 +1,23 @@
 #intro {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 50px 20px 30px;
 }
 
 #intro h2 {
     font-size: 3em;
     text-align: center;
-    flex: 1;
+    margin: 0 0 20px;
+    max-width: 12em;
 }
 
 #intro p {
-    flex: 2;
-  padding: 35px;
+    font-size: 1.4em;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
 }
 
 #cta {
@@ -20,6 +27,40 @@
     height: auto;
     width: auto;
     padding: 2vw;
+}
+
+#useCases {
+    padding: 20px;
+    text-align: center;
+}
+
+#useCases h2 {
+    font-weight: normal;
+    color: #2C2933;
+}
+
+#useCaseCards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.useCase {
+    background-color: #F2F1F2;
+    color: #2C2933;
+    border-radius: 30px;
+    padding: 12px 22px;
+    font-size: 1.1em;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.useCaseIcon {
+    font-size: 1.3em;
 }
 
 #features {
@@ -40,7 +81,7 @@
 }
 
 .featureCard {
-    width: 40%;
+    width: 30%;
     padding: 10px;
     background-color: #F2F1F2;
     margin: 10px auto;

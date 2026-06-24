@@ -41,8 +41,29 @@
     margin: 0 auto;
 }
 
+/* Let plan feature lines wrap instead of overflowing the card */
+.pricing-table ::ng-deep .mat-mdc-list-item {
+    height: auto;
+}
+
+.pricing-table ::ng-deep .mdc-list-item__primary-text {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    text-align: center;
+}
+
 @media only screen and (max-width: 600px) {
     .pricing-table {
         flex-wrap: wrap;
+    }
+
+    .pricing-table mat-card {
+        flex: 1 1 100%;
+        margin: 20px 0;
+    }
+
+    .pricing-card {
+        width: 100%;
     }
 }
