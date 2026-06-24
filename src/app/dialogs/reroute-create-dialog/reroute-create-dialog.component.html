@@ -2,33 +2,51 @@
 
 <div id="dialogContent" mat-dialog-content>
   <mat-form-field>
-    <mat-label>Name</mat-label>
-    <input matInput [(ngModel)]="name" name="name"> 
+    <mat-label>QR Name</mat-label>
+    <input matInput [(ngModel)]="name" name="name" />
   </mat-form-field>
 
   <mat-form-field>
-    <mat-label>Route</mat-label>
-    <input matInput [(ngModel)]="route" name="route">
+    <mat-label>Destination URL</mat-label>
+    <input matInput [(ngModel)]="route" name="route" />
   </mat-form-field>
 
   <div *ngIf="data.subType != 'free'" id="colorPicker">
-    <mat-form-field>
-      <mat-label>Code Color</mat-label>
-      <input matInput [(ngModel)]="color">
-    </mat-form-field>
-    <ngx-colors ngx-colors-trigger [(ngModel)]="color"></ngx-colors>
+    <div id="colorPicker">
+      <mat-form-field>
+        <mat-label>WR Color</mat-label>
+        <input matInput [(ngModel)]="color" />
+      </mat-form-field>
+      <div class="color-presets">
+        <button
+          type="button"
+          *ngFor="let c of presetColors"
+          [style.background]="c"
+          (click)="color = c"
+        ></button>
+      </div>
+      <input
+        type="color"
+        [(ngModel)]="color"
+        style="width: 48px; height: 48px; border: none; cursor: pointer"
+      />
+    </div>
   </div>
 
-  <h3 *ngIf="data.subType == 'unlimited'">Image</h3>
-  <div *ngIf="data.subType == 'unlimited' && !imageFile" id="imageUpload" 
-    ngClass="{{dragAreaClass}}"
+  <h3 *ngIf="data.subType == 'unlimited'">Logo Image</h3>
+  <div
+    *ngIf="data.subType == 'unlimited' && !imageFile"
+    id="imageUpload"
+    ngClass="{{ dragAreaClass }}"
     draggable="true"
   >
-    <input type="file" #fileUpload (change)="fileBrowseHandler($event)">
+    <input type="file" #fileUpload (change)="fileBrowseHandler($event)" />
     <mat-icon>upload</mat-icon>
     <h3>Drag and drop file here</h3>
     <h3>or</h3>
-    <button mat-raised-button color="primary" (click)="fileUpload.click()">Browse for File</button>
+    <button mat-raised-button color="primary" (click)="fileUpload.click()">
+      Browse for File
+    </button>
   </div>
 
   <div *ngIf="imageFile" class="files-list">
@@ -43,9 +61,10 @@
       </div>
       <mat-icon class="delete" (click)="deleteFile()">delete</mat-icon>
     </div>
-</div>
+  </div>
 
-<div id="dialogActions" mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="">Cancel</button>
-  <button mat-button (click)="createNewReroute()" cdkFocusInitial>Ok</button>
+  <div id="dialogActions" mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="">Cancel</button>
+    <button mat-button (click)="createNewReroute()" cdkFocusInitial>Ok</button>
+  </div>
 </div>

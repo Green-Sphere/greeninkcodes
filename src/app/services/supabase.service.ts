@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
-import { User, createClient } from '@supabase/supabase-js'
+import { User, createClient } from '@supabase/supabase-js';
 import { StripeService } from './stripe.service';
 
-const supabase = createClient('https://mffktnyucherckkcoxxu.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1mZmt0bnl1Y2hlcmNra2NveHh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDk0MDA2NjEsImV4cCI6MjAyNDk3NjY2MX0.nwSbwVAHMG4vF5B-DxnLPgwhFX09pXMFZBqcR_TJWQA');
+const supabase = createClient(
+  'https://gfcqawwzkmhezvpxhziu.supabase.co',
+  'sb_publishable_AwclkgkX_LYHrVjtbJz-ow_9cNdrW3V',
+);
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SupabaseService {
-  constructor(private stripe: StripeService) { }
+  constructor(private stripe: StripeService) {}
 
   async login(email: string, password: string) {
     return new Promise<void>(async (resolve, reject) => {
@@ -20,7 +23,7 @@ export class SupabaseService {
       if (data) resolve();
     });
   }
-  async logout () {
+  async logout() {
     return new Promise<void>(async (resolve, reject) => {
       const { error } = await supabase.auth.signOut();
       if (error) reject(error);
@@ -30,15 +33,14 @@ export class SupabaseService {
 
   async signup(name: string, email: string, password: string) {
     return new Promise<void>(async (resolve, reject) => {
-      await this.stripe.createCustomer(name, email)
-      .subscribe(async () => {
+      await this.stripe.createCustomer(name, email).subscribe(async () => {
         const { data, error } = await supabase.auth.signUp({
           email: email,
-          password: password
+          password: password,
         });
         if (error) reject(error);
         if (data) resolve();
-      });      
+      });
     });
   }
 
@@ -51,27 +53,31 @@ export class SupabaseService {
 
   async uploadImage(file: File, userId: number, iconId: number) {
     return new Promise<void>(async (resolve, reject) => {
-      const { data, error } = await supabase
-      .storage
-      .from('qr-icons')
-      .upload(`${userId}/${iconId}`, file, {
-        upsert: true
-      });
+      const { data, error } = await supabase.storage
+        .from('qr-icons')
+        .upload(`${userId}/${iconId}`, file, {
+          upsert: true,
+        });
       if (error) reject(error);
       if (data) resolve();
     });
   }
 
-  async createReroute(name: string, url: string, color: string = '', icon: File | undefined = undefined) {
+  async createReroute(
+    name: string,
+    url: string,
+    color: string = '',
+    icon: File | undefined = undefined,
+  ) {
     return new Promise<string>(async (resolve, reject) => {
       const { data, error } = await supabase
-      .from('reroutes')
-      .insert({ name: name, route: url, color: color })
-      .select();
+        .from('reroutes')
+        .insert({ name: name, route: url, color: color })
+        .select();
 
       if (error) reject(error);
-      if(data) {
-        if(icon) {
+      if (data) {
+        if (icon) {
           await this.uploadImage(icon, data[0].owner, data[0].id);
         }
         resolve(data[0].id);
@@ -79,11 +85,14 @@ export class SupabaseService {
     });
   }
 
-  async getUserURLs(){
+  async getUserURLs() {
     return new Promise(async (resolve, reject) => {
       const currentUser = await this.getLoggedInUser();
 
-      if (!currentUser) {reject('Not logged in'); return;};
+      if (!currentUser) {
+        reject('Not logged in');
+        return;
+      }
 
       const { data, error } = await supabase
         .from('reroutes')
@@ -99,7 +108,10 @@ export class SupabaseService {
   async getReroute(id: string) {
     return new Promise(async (resolve, reject) => {
       const currentUser = await this.getLoggedInUser();
-      if (!currentUser) {reject('Not logged in'); return;};
+      if (!currentUser) {
+        reject('Not logged in');
+        return;
+      }
 
       const { data, error } = await supabase
         .from('reroutes')
@@ -118,9 +130,13 @@ export class SupabaseService {
   async getRerouteIcon(id: string) {
     return new Promise(async (resolve, reject) => {
       const currentUser = await this.getLoggedInUser();
-      if (!currentUser) {reject('Not logged in'); return;};
-      const { data } = await supabase.storage.from('qr-icons')
-          .createSignedUrl(`${currentUser.id}/${id}`, 60);
+      if (!currentUser) {
+        reject('Not logged in');
+        return;
+      }
+      const { data } = await supabase.storage
+        .from('qr-icons')
+        .createSignedUrl(`${currentUser.id}/${id}`, 60);
       if (data) {
         resolve(data.signedUrl);
       } else {
@@ -136,8 +152,8 @@ export class SupabaseService {
         .from('reroutes')
         .update({ name: name, route: url })
         .eq('id', id);
-        
-      if (error) reject(error); 
+
+      if (error) reject(error);
       else resolve();
     });
   }
@@ -148,7 +164,7 @@ export class SupabaseService {
         .from('reroutes')
         .update({ deleted: true })
         .eq('id', id);
-      if (error) reject(error); 
+      if (error) reject(error);
       else resolve();
     });
   }
