@@ -40,6 +40,10 @@ body.dark-mode .mat-mdc-dialog-container {
   --mdc-dialog-supporting-text-color: #aaa !important;
 }
 
+body.dark-mode .mat-mdc-dialog-container .mdc-dialog__surface {
+  background-color: #1a1a1a !important;
+}
+
 body.dark-mode app-loading {
   background-color: #0f0f0fc2;
 }

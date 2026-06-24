@@ -102,6 +102,23 @@
 mat-table {
   background: transparent !important;
   width: 100%;
+  table-layout: fixed;
+}
+
+.mat-column-name {
+  width: 25%;
+}
+
+.mat-column-route {
+  width: 40%;
+}
+
+.mat-column-count {
+  width: 10%;
+}
+
+.mat-column-updated {
+  width: 25%;
 }
 
 .mat-mdc-header-row {
