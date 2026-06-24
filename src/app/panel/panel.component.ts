@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { SupabaseService } from '../services/supabase.service';
 import { MatIcon } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -57,13 +57,14 @@ export class PanelComponent implements OnInit {
   user: User | null | undefined;
   preventCreate: boolean = true;
   preventCreateReason: string = 'Loading...';
-  loading = false;
+  loading = true;
 
   constructor(
     private supabase: SupabaseService,
     private dialog: MatDialog,
     private stripe: StripeService,
     private dynamicScriptLoader: DynamicScriptLoaderService,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   async ngOnInit() {
@@ -83,6 +84,7 @@ export class PanelComponent implements OnInit {
       console.error('getURLs error:', e);
     } finally {
       this.loading = false;
+      this.cdr.detectChanges();
     }
   }
 
