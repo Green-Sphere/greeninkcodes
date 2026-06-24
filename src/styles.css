@@ -1,35 +1,88 @@
-@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap");
 @import "./app/greeninktheme.css";
 
 body {
-    font-family: "Unbounded", sans-serif;
-    background-color: var(--mat-app-background-color, transparent);
+  font-family: "Unbounded", sans-serif;
+  background-color: var(--mat-app-background-color, transparent);
 }
 
 .mat-mdc-snack-bar-container {
-    &.info-snackbar {
-        --mdc-snackbar-container-color: #2C2933;
-        --mat-mdc-snack-bar-button-color: #fff;
-        --mdc-snackbar-supporting-text-color: #fff;
-    }
+  &.info-snackbar {
+    --mdc-snackbar-container-color: #2c2933;
+    --mat-mdc-snack-bar-button-color: #fff;
+    --mdc-snackbar-supporting-text-color: #fff;
+  }
 }
 
 .mat-mdc-snack-bar-container {
-    &.error-snackbar {
-        --mdc-snackbar-container-color: #bd2b2b;
-        --mat-mdc-snack-bar-button-color: #fff;
-        --mdc-snackbar-supporting-text-color: #fff;
-    }
+  &.error-snackbar {
+    --mdc-snackbar-container-color: #bd2b2b;
+    --mat-mdc-snack-bar-button-color: #fff;
+    --mdc-snackbar-supporting-text-color: #fff;
+  }
 }
 
 app-loading {
-    z-index: 9999;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #ffffffc2;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffffc2;
+}
+
+body.dark-mode app-loading {
+  background-color: #0f0f0fc2;
+}
+
+body.dark-mode {
+  background-color: #0f0f0f !important;
+  color: #e8e8e8 !important;
+  --mat-app-background-color: #0f0f0f; /* override the variable */
+  --mat-app-text-color: #e8e8e8;
+}
+
+body.dark-mode .mat-mdc-card {
+  background-color: #1a1a1a !important;
+  color: #e8e8e8 !important;
+}
+
+body.dark-mode .pricing-section {
+  background-color: #0f0f0f !important;
+}
+
+body.dark-mode .hero {
+  background-color: #0f0f0f !important;
+}
+
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode p,
+body.dark-mode .mat-mdc-list-item {
+  color: #e8e8e8 !important;
+}
+
+body.dark-mode .featureCard {
+  background-color: #1e1e1e !important;
+}
+
+body.dark-mode .pricing-btn--ghost {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  color: #aaa !important;
+}
+
+body.dark-mode .pricing-btn--ghost:hover {
+  border-color: #39e639 !important;
+  color: #39e639 !important;
+}
+
+body.dark-mode .use-case-icon,
+body.dark-mode .use-case-item {
+  background-color: rgba(57, 230, 57, 0.08) !important;
+  border-color: rgba(57, 230, 57, 0.2) !important;
+  color: #e8e8e8 !important;
 }

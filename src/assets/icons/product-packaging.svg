@@ -1,0 +1,14 @@
+<svg width="88" height="88" viewBox="0 0 88 88" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>Product packaging</title>
+  <desc>An isometric box with a QR code on the front face</desc>
+  <rect x="16" y="30" width="46" height="38" rx="2" fill="none" stroke="#39e639" stroke-width="1.6"/>
+  <polyline points="16,30 28,18 74,18 62,30" fill="none" stroke="#39e639" stroke-width="1.6" stroke-linejoin="round"/>
+  <polyline points="62,30 74,18 74,56 62,68" fill="none" stroke="#39e639" stroke-width="1.6" stroke-linejoin="round"/>
+  <rect x="24" y="40" width="16" height="16" rx="1" fill="none" stroke="#39e639" stroke-width="1.1"/>
+  <rect x="26" y="42" width="5" height="5" fill="#39e639"/>
+  <rect x="33" y="42" width="5" height="5" fill="#39e639"/>
+  <rect x="26" y="49" width="5" height="5" fill="#39e639"/>
+  <rect x="33" y="47" width="2" height="2" fill="#39e639"/>
+  <rect x="36" y="50" width="2" height="2" fill="#39e639"/>
+  <rect x="33" y="52" width="2" height="2" fill="#39e639"/>
+</svg>

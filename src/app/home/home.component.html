@@ -2,38 +2,100 @@
   <div class="main-content">
     <div id="intro">
       <h2>Change any printed QR code without reprinting it.</h2>
-      <p>
-        Create QR codes once.<br>
-        Change their destination anytime.<br>
-        No reprinting required.
+      <p class="hero-subtitle">
+        Used by restaurants, realtors, and small businesses to keep their
+        printed materials always up to date.
       </p>
+      <a href="/signup" class="cta-button">
+        Get Started Free
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <path
+            d="M3 8h10M9 4l4 4-4 4"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </a>
     </div>
 
     <div id="useCases">
-      <h2>Perfect for business cards, flyers, menus, product packaging, and signs</h2>
+      <h2>
+        Perfect for business cards, flyers, menus, product packaging, and signs
+      </h2>
       <div id="useCaseCards">
-        <div class="useCase"><span class="useCaseIcon">📋</span> Restaurant Menu</div>
-        <div class="useCase"><span class="useCaseIcon">🏠</span> Realtor Sign</div>
-        <div class="useCase"><span class="useCaseIcon">🎪</span> Craft Fair Booth</div>
-        <div class="useCase"><span class="useCaseIcon">📦</span> Product Packaging</div>
-        <div class="useCase"><span class="useCaseIcon">📇</span> Business Card</div>
+        <div class="useCase">
+          <img
+            src="../../assets/icons/restaurant-menu.svg"
+            width="48"
+            height="48"
+            alt="Restaurant menu"
+          />
+          Restaurant Menu
+        </div>
+        <div class="useCase">
+          <img
+            src="../../assets/icons/realtor-sign.svg"
+            width="48"
+            height="48"
+            alt="Realtor Sign"
+          />
+          Realtor Sign
+        </div>
+        <div class="useCase">
+          <img
+            src="../../assets/icons/craft-fair-booth.svg"
+            width="48"
+            height="48"
+            alt="Craft Fair Booth"
+          />
+          Craft Fair Booth
+        </div>
+        <div class="useCase">
+          <img
+            src="../../assets/icons/product-packaging.svg"
+            width="48"
+            height="48"
+            alt="Product Packaging"
+          />
+          Product Packaging
+        </div>
+        <div class="useCase">
+          <img
+            src="../../assets/icons/business-card.svg"
+            width="48"
+            height="48"
+            alt="Business Card"
+          />
+          Business Card
+        </div>
       </div>
     </div>
 
     <div id="features">
       <h2>Powerful features of GreenInk</h2>
-      <p>Discover the capabilities that make GreenInk a top choice for QR Code Management</p>
+      <p>
+        Discover the capabilities that make GreenInk a top choice for QR Code
+        Management
+      </p>
       <div id="featureCards">
         <div class="featureCard">
           <div class="featureIcon">
             <mat-icon>ballot</mat-icon>
           </div>
           <div class="featureInfo">
-            <h3 class="featureTitle">
-              Dynamic QR Code Management
-            </h3>
+            <h3 class="featureTitle">Dynamic QR Code Management</h3>
             <p class="featureText">
-              Printed 500 flyers and changed your website? Just update the destination — no reprinting required.
+              Printed 500 flyers and changed your website? Just update the
+              destination — no reprinting required.
             </p>
           </div>
         </div>
@@ -42,9 +104,7 @@
             <mat-icon>link</mat-icon>
           </div>
           <div class="featureInfo">
-            <h3 class="featureTitle">
-              URL Shortening
-            </h3>
+            <h3 class="featureTitle">URL Shortening</h3>
             <p class="featureText">
               Cleaner links for flyers, business cards, and packaging.
             </p>
@@ -55,11 +115,10 @@
             <mat-icon>report_problem</mat-icon>
           </div>
           <div class="featureInfo">
-            <h3 class="featureTitle">
-              Dead Link Detection
-            </h3>
+            <h3 class="featureTitle">Dead Link Detection</h3>
             <p class="featureText">
-              Get alerted the moment your QR destination returns a 404 — before your customers do.
+              Get alerted the moment your QR destination returns a 404 — before
+              your customers do.
             </p>
           </div>
         </div>
@@ -68,9 +127,7 @@
             <mat-icon>data_usage</mat-icon>
           </div>
           <div class="featureInfo">
-            <h3 class="featureTitle">
-              Detailed Analytics
-            </h3>
+            <h3 class="featureTitle">Detailed Analytics</h3>
             <p class="featureText">
               See how many people scanned your QR code and when.
             </p>
@@ -81,21 +138,31 @@
             <mat-icon>edit</mat-icon>
           </div>
           <div class="featureInfo">
-            <h3 class="featureTitle">
-              Customizable QR Codes
-            </h3>
+            <h3 class="featureTitle">Customizable QR Codes</h3>
             <p class="featureText">
               Match your QR codes to your brand with custom colors and logos.
             </p>
           </div>
         </div>
       </div>
-      <button id="cta" mat-raised-button color="primary" routerLink="/signup">Get Started</button>
+      <button id="cta" mat-raised-button color="primary" routerLink="/signup">
+        Get Started
+      </button>
     </div>
-  <app-pricing></app-pricing>
-  <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-around;">
-    <a href="https://www.termsfeed.com/live/28c2315c-2267-4912-93b5-67af39224599">Privacy Policy</a>
-    <a href="/tnc">Terms and Conditions</a>
+    <app-pricing></app-pricing>
+    <div
+      style="
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+      "
+    >
+      <a
+        href="https://www.termsfeed.com/live/28c2315c-2267-4912-93b5-67af39224599"
+        >Privacy Policy</a
+      >
+      <a href="/tnc">Terms and Conditions</a>
+    </div>
   </div>
-  
 </div>

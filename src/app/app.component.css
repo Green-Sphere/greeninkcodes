@@ -1,0 +1,35 @@
+body.dark-mode {
+  background-color: #0f0f0f !important;
+  color: #e8e8e8 !important;
+}
+
+body.dark-mode .mat-mdc-card {
+  background-color: #1a1a1a !important;
+  color: #e8e8e8 !important;
+}
+
+body.dark-mode .pricing-section {
+  background-color: #0f0f0f !important;
+}
+
+body.dark-mode .hero {
+  background-color: #0f0f0f !important;
+}
+
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode p,
+body.dark-mode .mat-mdc-list-item {
+  color: #e8e8e8 !important;
+}
+
+body.dark-mode .pricing-btn--ghost {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  color: #aaa !important;
+}
+
+body.dark-mode .pricing-btn--ghost:hover {
+  border-color: #39e639 !important;
+  color: #39e639 !important;
+}
