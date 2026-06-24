@@ -72,12 +72,9 @@ export class PanelComponent implements OnInit {
     if (this.subType == 'basic' || this.subType == 'unlimited') {
       this.createChatDiv();
     }
-
-    this.loading = false;
   }
 
   async getURLs() {
-    this.loading = true;
     const userURLs = await this.supabase.getUserURLs();
 
     this.reroutes.data = userURLs as unknown[];
@@ -119,19 +116,29 @@ export class PanelComponent implements OnInit {
 
   async setUserSubscription() {
     if (this.user?.email) {
-      this.stripe
-        .getCustomerSubscription(this.user?.email)
-        .subscribe((subscription) => {
+      this.stripe.getCustomerSubscription(this.user?.email).subscribe({
+        next: (subscription) => {
+          console.log('subscription response:', subscription);
           const planId = subscription?.level ?? '';
-
           this.subType =
             planId === 'starter'
               ? 'basic'
               : planId === 'pro'
                 ? 'unlimited'
                 : 'free';
+          console.log('subType set to:', this.subType);
           this.getURLs();
-        });
+        },
+        error: (err) => {
+          console.error('stripe subscription error:', err);
+          this.subType = 'free';
+          this.getURLs(); // still need to call this so loading turns off
+        },
+      });
+    } else {
+      // user has no email, loading will never end
+      console.warn('no user email found');
+      this.loading = false;
     }
   }
 
