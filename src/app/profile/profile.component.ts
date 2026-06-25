@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { MatList, MatListItem } from '@angular/material/list';
 import {
   MatCard,
@@ -45,6 +45,7 @@ export class ProfileComponent {
     private supabase: SupabaseService,
     private stripe: StripeService,
     private dynamicScriptLoader: DynamicScriptLoaderService,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   async ngOnInit() {
@@ -64,6 +65,7 @@ export class ProfileComponent {
         });
     }
     this.loading = false;
+    this.cdr.detectChanges();
   }
 
   sendToCheckout(plan: string) {
