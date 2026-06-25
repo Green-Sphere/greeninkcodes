@@ -102,6 +102,7 @@
 mat-table {
   background: transparent !important;
   width: 100%;
+  display: table;
   table-layout: fixed;
 }
 
@@ -225,5 +226,35 @@ mat-table {
 
   .route-url {
     max-width: 150px;
+  }
+}
+/* Hide "Last Updated" below 768px */
+@media (max-width: 768px) {
+  .mat-column-updated {
+    display: none;
+  }
+
+  .mat-column-name {
+    width: 40%;
+  }
+  .mat-column-route {
+    width: 45%;
+  }
+  .mat-column-count {
+    width: 15%;
+  }
+}
+
+/* Hide "Destination" below 480px — leaves Name + Scans only */
+@media (max-width: 480px) {
+  .mat-column-route {
+    display: none;
+  }
+
+  .mat-column-name {
+    width: 70%;
+  }
+  .mat-column-count {
+    width: 30%;
   }
 }

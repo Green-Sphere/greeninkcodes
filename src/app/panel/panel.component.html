@@ -61,8 +61,10 @@
       </ng-container>
 
       <ng-container matColumnDef="route">
-        <th mat-header-cell *matHeaderCellDef>Destination</th>
-        <td mat-cell *matCellDef="let element">
+        <th mat-header-cell *matHeaderCellDef class="mat-column-route">
+          Destination
+        </th>
+        <td mat-cell *matCellDef="let element" class="mat-column-route">
           <span class="route-url">{{ element.route }}</span>
         </td>
       </ng-container>
@@ -75,8 +77,10 @@
       </ng-container>
 
       <ng-container matColumnDef="updated">
-        <th mat-header-cell *matHeaderCellDef>Last Updated</th>
-        <td mat-cell *matCellDef="let element">
+        <th mat-header-cell *matHeaderCellDef class="mat-column-updated">
+          Last Updated
+        </th>
+        <td mat-cell *matCellDef="let element" class="mat-column-updated">
           {{ element.updated_at | date }}
         </td>
       </ng-container>
