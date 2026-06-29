@@ -14,6 +14,11 @@ import { User } from '@supabase/supabase-js';
 import { StripeService } from '../services/stripe.service';
 import { LoadingComponent } from '../loading/loading.component';
 import { DynamicScriptLoaderService } from '../services/dynamic-script-loader.service';
+import { FormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-profile',
@@ -29,6 +34,11 @@ import { DynamicScriptLoaderService } from '../services/dynamic-script-loader.se
     MatButton,
     CommonModule,
     LoadingComponent,
+    FormsModule,
+    MatIconModule,
+    MatTooltip,
+    MatFormFieldModule,
+    MatInputModule
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
