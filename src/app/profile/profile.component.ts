@@ -87,30 +87,30 @@ export class ProfileComponent {
     this.stripe.redirectToPortal(this.user?.email || '');
   }
 
-  async setUserSubscription() {
-    if (this.user?.email) {
-      this.stripe.getCustomerSubscription(this.user?.email).subscribe({
-        next: (subscription) => {
-          console.log('subscription response:', subscription);
-          const planId = subscription?.level ?? '';
-          this.subType =
-            planId === 'starter'
-              ? 'basic'
-              : planId === 'pro'
-                ? 'unlimited'
-                : 'free';
-          console.log('subType set to:', this.subType);
-        },
-        error: (err) => {
-          console.error('stripe subscription error:', err);
-          this.subType = 'free';
-        },
-      });
-    } else {
-      // user has no email, loading will never end
-      console.warn('no user email found');
-      this.loading = false;
-    }
+  async setUserSubscription(): Promise<void> {
+    return new Promise((resolve) => {
+      if (this.user?.email) {
+        this.stripe
+          .getCustomerSubscription(this.user?.email)
+          .subscribe({
+            next: (subscription) => {
+              const planId = subscription?.level ?? '';
+              this.subType =
+                planId === 'starter' ? 'basic' :
+                planId === 'pro'     ? 'unlimited' :
+                'free';
+              resolve();
+            },
+            error: (err) => {
+              console.error('subscription error:', err);
+              this.subType = 'free';
+              resolve(); // always resolve so ngOnInit continues
+            }
+          });
+      } else {
+        resolve();
+      }
+    });
   }
 
   async changePassword() {
