@@ -1,9 +1,13 @@
 <div id="header">
   <div id="headerMenu">
-    <button mat-button *ngIf="isLoggedIn" routerLink="/profile">Profile</button>
-    <button mat-button *ngIf="isLoggedIn" routerLink="/panel">Panel</button>
+    <button mat-button *ngIf="isLoggedIn" routerLink="/profile">
+      <span class="btn-full">Profile</span>
+    </button>
+    <button mat-button *ngIf="isLoggedIn" routerLink="/panel">
+      <span class="btn-full">Panel</span>
+    </button>
     <button mat-stroked-button *ngIf="isLoggedIn" (click)="logout()">
-      Logout
+      <span class="btn-full">Logout</span>
     </button>
     <button mat-stroked-button *ngIf="!isLoggedIn" routerLink="/login">
       Login

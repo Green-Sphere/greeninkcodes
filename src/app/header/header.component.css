@@ -11,7 +11,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;  /* prevent wrapping */
   gap: 4px;
   padding: 8px 12px 0;
   width: 100%;
@@ -20,6 +20,31 @@
 
 #headerMenu button {
   margin: 0;
+  white-space: nowrap;  /* prevent button text from wrapping */
+  flex-shrink: 1;       /* allow buttons to shrink if needed */
+}
+
+@media (max-width: 400px) {
+  #headerMenu button {
+    font-size: 11px;
+    padding: 0 6px;
+  }
+
+  #headerMenu {
+    gap: 2px;
+    padding: 6px 8px 0;
+  }
+}
+
+@media (max-width: 360px) {
+  .btn-full {
+    display: none;
+  }
+  
+  /* Show icons instead on very small screens */
+  button[routerLink="/profile"]::after { content: '👤'; }
+  button[routerLink="/panel"]::after { content: '⊞'; }
+  button[mat-stroked-button]::after { content: '⏻'; }
 }
 
 #headerTitle {
