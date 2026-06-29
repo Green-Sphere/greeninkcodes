@@ -343,14 +343,24 @@
 
   .pricing-table {
     grid-template-columns: 1fr;
+    grid-template-columns: 1fr;
+    width: 100%;
+    max-width: 100%;
   }
 
   .pricing-card {
     box-sizing: border-box;
-    width: 100%;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
   }
 
   .section-grid {
     grid-template-columns: 1fr;
+  }
+
+  ::ng-deep .mat-mdc-card {
+    max-width: 100% !important;
+    min-width: 0 !important;
   }
 }
