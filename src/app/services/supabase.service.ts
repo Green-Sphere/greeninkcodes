@@ -44,6 +44,10 @@ export class SupabaseService {
     });
   }
 
+  async updatePassword(newPassword: string) {
+    return await supabase.auth.updateUser({ password: newPassword });
+  }
+
   async getLoggedInUser() {
     return new Promise<User | null>(async (resolve, reject) => {
       const { data } = await supabase.auth.getUser();

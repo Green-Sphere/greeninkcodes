@@ -1,52 +1,335 @@
-#userInfo, .portalBtn{
-    text-align: center;
+.profile-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
+/* Cards */
+.profile-card {
+  background: #1a1a1a;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #e8e8e8;
+  margin: 0 0 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.8rem;
+  color: #888;
+}
+
+/* Two column grid for account + usage */
+.section-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+/* Info rows */
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.info-row:last-of-type {
+  border-bottom: none;
+}
+
+.info-label {
+  font-size: 0.8rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  width: 100px;
+  flex-shrink: 0;
+}
+
+.info-value {
+  color: #e8e8e8;
+  font-size: 0.9rem;
+  flex: 1;
+}
+
+.user-id {
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: #666;
+  word-break: break-all;
+}
+
+/* Plan badge */
+.plan-badge {
+  padding: 3px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.plan-badge.free {
+  background: rgba(255,255,255,0.08);
+  color: #888;
+}
+
+.plan-badge.starter {
+  background: rgba(57, 230, 57, 0.15);
+  color: #39e639;
+}
+
+.plan-badge.unlimited {
+  background: rgba(57, 230, 57, 0.25);
+  color: #39e639;
+  border: 1px solid rgba(57,230,57,0.4);
+}
+
+.portal-btn {
+  margin-top: 20px;
+  width: 100%;
+  border-color: rgba(255,255,255,0.15) !important;
+  color: #e8e8e8 !important;
+}
+
+.portal-btn:hover {
+  border-color: #39e639 !important;
+  color: #39e639 !important;
+}
+
+/* Usage stats */
+.usage-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  height: calc(100% - 40px);
+  align-items: center;
+}
+
+.usage-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #39e639;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Password form */
+.password-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 480px;
+}
+
+.password-form mat-form-field {
+  width: 100%;
+}
+
+.password-error {
+  color: #e53935;
+  font-size: 0.85rem;
+  padding: 4px 0;
+}
+
+.password-success {
+  color: #39e639;
+  font-size: 0.85rem;
+  padding: 4px 0;
+}
+
+.action-btn {
+  background-color: #39e639 !important;
+  color: #0a0a0a !important;
+  width: fit-content;
+  padding: 0 24px;
+}
+
+/* Section heading */
+.section-heading {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #e8e8e8;
+  margin: 0 0 16px;
+}
+
+/* Pricing table */
 .pricing-table {
-    display: flex;
-    justify-content: space-around;
-    align-items: stretch;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
 }
 
-.pricing-table mat-card {
-    flex: 1;
-    margin: 20px;
-    text-align: center;
+.pricing-card {
+  background: #1a1a1a !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  border-radius: 12px !important;
+  position: relative;
+  padding: 8px;
 }
 
-.pricing-table mat-card-title {
-    margin-bottom: 10px;
+.pricing-card.starter {
+  border-color: #39e639 !important;
 }
-.price {
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    display: flex;
+
+.popular-badge {
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #39e639;
+  color: #0a0a0a;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 14px;
+  border-radius: 20px;
+  white-space: nowrap;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.price-badge {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin: 12px 0;
+}
+
+.price-amount {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #39e639;
+}
+
+.price-period {
+  color: #888;
+  font-size: 0.85rem;
+}
+
+::ng-deep .pricing-card mat-list-item {
+  color: #aaa !important;
+  font-size: 0.85rem !important;
+  height: auto !important;
+  padding: 6px 0 !important;
+  border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+}
+
+::ng-deep .pricing-card mat-list-item::before {
+  content: '✓';
+  color: #39e639;
+  font-weight: 700;
+  margin-right: 8px;
+}
+
+::ng-deep .pricing-card mat-list-item:last-child {
+  border-bottom: none !important;
+}
+
+.pricing-btn {
+  display: block;
+  text-align: center;
+  padding: 12px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-top: 16px;
+  text-decoration: none;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.pricing-btn--primary {
+  background-color: #39e639;
+  color: #0a0a0a;
+  border: 1px solid #39e639;
+}
+
+.pricing-btn--primary:hover {
+  background-color: #2ecc2e;
+  transform: translateY(-1px);
+}
+
+.pricing-btn--outline {
+  background: transparent;
+  color: #39e639;
+  border: 1px solid #39e639;
+}
+
+.pricing-btn--outline:hover {
+  background: rgba(57,230,57,0.08);
+}
+
+/* Danger zone */
+.danger-zone {
+  border-color: rgba(229, 57, 53, 0.2) !important;
+}
+
+.danger-title {
+  color: #e53935 !important;
+}
+
+.danger-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.danger-label {
+  color: #e8e8e8;
+  font-weight: 600;
+  margin: 0 0 4px;
+  font-size: 0.9rem;
+}
+
+.danger-desc {
+  color: #666;
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+.delete-btn {
+  border-color: #e53935 !important;
+  color: #e53935 !important;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.delete-btn:hover {
+  background: rgba(229, 57, 53, 0.08) !important;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .section-grid,
+  .pricing-table {
+    grid-template-columns: 1fr;
+  }
+
+  .danger-row {
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #50D139;
-    color: white;
-}
+    align-items: flex-start;
+  }
 
-.price h2 {
-    margin: 0;
-}
-
-.pricing-table mat-card-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    height: 100%;
-}
-
-::ng-deep .mat-mdc-card-header-text {
-    margin: 0 auto;
-}
-
-@media only screen and (max-width: 600px) {
-    .pricing-table {
-        flex-wrap: wrap;
-    }
+  .usage-stats {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }

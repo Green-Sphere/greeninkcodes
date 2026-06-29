@@ -40,6 +40,14 @@ export class ProfileComponent {
   subType: string = 'free';
   user: User | null | undefined;
   loading = true;
+  newPassword = '';
+  confirmPassword = '';
+  showPassword = false;
+  savingPassword = false;
+  passwordError = '';
+  passwordSuccess = '';
+  codesUsed = 0;
+  totalScans = 0;
 
   constructor(
     private supabase: SupabaseService,
@@ -64,6 +72,9 @@ export class ProfileComponent {
                 : 'free';
         });
     }
+    const urls = await this.supabase.getUserURLs() as any[];
+    this.codesUsed = urls.length;
+    this.totalScans = urls.reduce((sum, r) => sum + (r.triggered || 0), 0);
     this.loading = false;
     this.cdr.detectChanges();
   }
@@ -74,6 +85,60 @@ export class ProfileComponent {
 
   sendToCustomerPortal() {
     this.stripe.redirectToPortal(this.user?.email || '');
+  }
+
+  async changePassword() {
+    this.passwordError = '';
+    this.passwordSuccess = '';
+
+    if (this.newPassword.length < 8) {
+      this.passwordError = 'Password must be at least 8 characters.';
+      return;
+    }
+    if (this.newPassword !== this.confirmPassword) {
+      this.passwordError = 'Passwords do not match.';
+      return;
+    }
+
+    this.savingPassword = true;
+    const { error } = await this.supabase.updatePassword(this.newPassword);
+    this.savingPassword = false;
+
+    if (error) {
+      this.passwordError = error.message;
+    } else {
+      this.passwordSuccess = 'Password updated successfully.';
+      this.newPassword = '';
+      this.confirmPassword = '';
+    }
+    this.cdr.detectChanges();
+  }
+
+  copyUserId() {
+    navigator.clipboard.writeText(this.user?.id || '');
+  }
+
+  confirmDeleteAccount() {
+    const confirmed = window.confirm(
+      'Are you sure? This will permanently delete your account and all QR codes. This cannot be undone.'
+    );
+    if (confirmed) {
+      this.deleteAccount();
+    }
+  }
+
+  async deleteAccount() {
+    // Requires a Supabase admin call or edge function
+    // Placeholder — wire up to your backend
+    console.log('delete account');
+  }
+
+  maxReroutes(): string {
+    switch (this.subType) {
+      case 'starter': return '5';
+      case 'unlimited': return '∞';
+      default: return '1';
+    }
   }
 
   createChatDiv() {
