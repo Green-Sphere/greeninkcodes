@@ -176,3 +176,124 @@
     width: 80%;
   }
 }
+
+@media only screen and (max-width: 600px) {
+  /* Hero — shrink the headline and subtitle */
+  #intro {
+    padding: 24px 16px 20px;
+  }
+
+  #intro h2 {
+    font-size: clamp(1.6rem, 8vw, 2.4rem);
+    margin: 0 0 12px;
+  }
+
+  #intro p {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .cta-button {
+    margin: 16px auto 20px;
+    font-size: 0.95rem;
+    padding: 12px 24px;
+  }
+
+  /* Use cases — stack vertically, full width */
+  #useCases {
+    padding: 16px;
+  }
+
+  #useCases h2 {
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
+
+  #useCaseCards {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .useCase {
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 1rem;
+    justify-content: flex-start;
+  }
+
+  /* Features — single column, more breathing room */
+  #features {
+    padding: 24px 16px;
+  }
+
+  #features > h2 {
+    font-size: 1.2rem;
+  }
+
+  #features > p {
+    font-size: 0.9rem;
+  }
+
+  #featureCards {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .featureCard {
+    grid-column: span 1 !important; /* override nth-child span rules */
+    width: 100%;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 16px;
+    gap: 12px;
+    margin: 0;
+    border-top: 3px solid #39e639;
+  }
+
+  .featureIcon {
+    min-width: 40px;
+    flex: 0;
+  }
+
+  .featureIcon mat-icon {
+    transform: scale(1.4);
+  }
+
+  .featureInfo h3 {
+    font-size: 0.95rem;
+    margin: 0 0 4px;
+  }
+
+  .featureInfo p {
+    font-size: 0.85rem;
+    margin: 0;
+  }
+
+  /* Get Started CTA button */
+  #cta {
+    font-size: 1rem;
+    padding: 14px 24px;
+    width: 90%;
+  }
+}
+
+/* Tablet tweaks */
+@media only screen and (max-width: 900px) and (min-width: 601px) {
+  #intro h2 {
+    font-size: 2.2rem;
+  }
+
+  #intro p {
+    font-size: 1.1rem;
+  }
+
+  #featureCards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .featureCard {
+    grid-column: span 1 !important;
+  }
+}
