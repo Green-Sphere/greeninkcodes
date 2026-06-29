@@ -154,29 +154,6 @@
   transform: translateY(0);
 }
 
-@media only screen and (max-width: 1000px) and (min-width: 600px) {
-}
-
-@media only screen and (max-width: 600px) {
-  #intro {
-    flex-direction: column;
-  }
-  #cta {
-    font-size: 4vw;
-    padding: 5vw;
-  }
-  .featureCard {
-    width: 100%;
-    text-align: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 15px;
-  }
-  .pricing-card {
-    width: 80%;
-  }
-}
-
 @media only screen and (max-width: 600px) {
   /* Hero — shrink the headline and subtitle */
   #intro {
