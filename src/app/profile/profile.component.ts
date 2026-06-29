@@ -68,19 +68,9 @@ export class ProfileComponent {
 
   async ngOnInit() {
     this.user = await this.supabase.getLoggedInUser();
-    if (this.user?.email) {
-      this.stripe
-        .getCustomerSubscription(this.user?.email)
-        .subscribe((subscription) => {
-          const planId = subscription?.level ?? '';
-
-          this.subType =
-            planId === 'starter'
-              ? 'basic'
-              : planId === 'pro'
-                ? 'unlimited'
-                : 'free';
-        });
+    await this.setUserSubscription();
+    if (this.subType == 'basic' || this.subType == 'unlimited') {
+      this.createChatDiv();
     }
     const urls = await this.supabase.getUserURLs() as any[];
     this.codesUsed = urls.length;
@@ -95,6 +85,32 @@ export class ProfileComponent {
 
   sendToCustomerPortal() {
     this.stripe.redirectToPortal(this.user?.email || '');
+  }
+
+  async setUserSubscription() {
+    if (this.user?.email) {
+      this.stripe.getCustomerSubscription(this.user?.email).subscribe({
+        next: (subscription) => {
+          console.log('subscription response:', subscription);
+          const planId = subscription?.level ?? '';
+          this.subType =
+            planId === 'starter'
+              ? 'basic'
+              : planId === 'pro'
+                ? 'unlimited'
+                : 'free';
+          console.log('subType set to:', this.subType);
+        },
+        error: (err) => {
+          console.error('stripe subscription error:', err);
+          this.subType = 'free';
+        },
+      });
+    } else {
+      // user has no email, loading will never end
+      console.warn('no user email found');
+      this.loading = false;
+    }
   }
 
   async changePassword() {
