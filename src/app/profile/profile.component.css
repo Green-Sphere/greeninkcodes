@@ -332,4 +332,25 @@
   .usage-stats {
     grid-template-columns: repeat(3, 1fr);
   }
+    .profile-page {
+    padding: 16px;
+  }
+
+  .profile-card {
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .pricing-table {
+    grid-template-columns: 1fr;
+  }
+
+  .pricing-card {
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .section-grid {
+    grid-template-columns: 1fr;
+  }
 }
