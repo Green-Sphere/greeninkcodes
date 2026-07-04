@@ -1,39 +1,109 @@
 <h2 mat-dialog-title>{{ reroute.name }}</h2>
+
 <mat-dialog-content id="dialogContent">
-    <app-loading *ngIf="loading"></app-loading>
+  <app-loading *ngIf="loading"></app-loading>
+
+  <div *ngIf="!loading" id="topSection">
+    <!-- QR + URL -->
     <div id="qrURLWrapper">
-        <div id="overlay" (click)="saveImage()"><mat-icon>save_alt</mat-icon></div>
-        <div id="qrCode" #canvas></div>
-        <div id="shortURL" [matTooltip]="'Click to copy'" (click)="copyURL()">
-            {{ shortURL }}
-        </div>
+      <div id="overlay" (click)="saveImage()">
+        <mat-icon>save_alt</mat-icon>
+      </div>
+      <div id="qrCode" #canvas></div>
+      <div id="shortURL" [matTooltip]="'Click to copy'" (click)="copyURL()">
+        {{ shortURL }}
+      </div>
     </div>
+
+    <!-- Details -->
     <div id="dialogDetails">
-        <div>
-            <mat-form-field>
-                <mat-label>Name</mat-label>
-        <input matInput [(ngModel)]="reroute.name" />
+      <div>
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput [(ngModel)]="reroute.name" />
         </mat-form-field>
       </div>
       <div>
         <mat-form-field>
-            <mat-label>Route</mat-label>
-        <input matInput [(ngModel)]="reroute.route" />
+          <mat-label>Route</mat-label>
+          <input matInput [(ngModel)]="reroute.route" />
         </mat-form-field>
       </div>
-        <div>
-            <b>Count:</b> {{ reroute.triggered }}
+    </div>
+  </div>
+
+  <!-- Analytics -->
+  <div *ngIf="!loading" id="analytics">
+
+    <div class="analytics-stats">
+      <div class="analytics-stat">
+        <span class="analytics-value">{{ reroute.triggered }}</span>
+        <span class="analytics-label">Total scans</span>
+      </div>
+      <div class="analytics-stat">
+        <span class="analytics-value">{{ qrScans }}</span>
+        <span class="analytics-label">QR scans</span>
+      </div>
+      <div class="analytics-stat">
+        <span class="analytics-value">{{ linkScans }}</span>
+        <span class="analytics-label">Link clicks</span>
+      </div>
+      <div class="analytics-stat">
+        <span class="analytics-value">{{ peakDay || '—' }}</span>
+        <span class="analytics-label">Peak day</span>
+      </div>
+    </div>
+
+    <!-- Bar chart -->
+    <div class="chart-wrap">
+      <p class="chart-title">Scans — last 30 days</p>
+      <div class="chart">
+        <div
+          *ngFor="let bar of chartBars"
+          class="bar-wrap"
+          [matTooltip]="bar.date + ': ' + bar.count + ' scan(s)'"
+        >
+          <div
+            class="bar"
+            [style.height.%]="bar.height"
+            [class.bar--active]="bar.count > 0"
+          ></div>
         </div>
+      </div>
     </div>
-    
+
+    <!-- QR vs link breakdown -->
+    <div class="method-breakdown" *ngIf="reroute.triggered > 0">
+      <div
+        class="method-bar qr"
+        [style.width.%]="(qrScans / reroute.triggered) * 100"
+        [matTooltip]="'QR scans: ' + qrScans"
+      ></div>
+      <div
+        class="method-bar link"
+        [style.width.%]="(linkScans / reroute.triggered) * 100"
+        [matTooltip]="'Link clicks: ' + linkScans"
+      ></div>
+    </div>
+    <div class="method-legend" *ngIf="reroute.triggered > 0">
+      <span class="legend-item qr-legend">
+        <span class="legend-dot"></span> QR ({{ qrScans }})
+      </span>
+      <span class="legend-item link-legend">
+        <span class="legend-dot link-dot"></span> Link ({{ linkScans }})
+      </span>
+    </div>
+
+  </div>
 </mat-dialog-content>
+
 <mat-dialog-actions *ngIf="!loading" id="dialogActions">
-    <div id="deleteButtons">
-        <button *ngIf="confirmDelete" mat-button color="warn" [disabled]="saving" (click)="deleteReroute()">Confirm Delete</button>
-        <button *ngIf="!confirmDelete" mat-button color="warn" [disabled]="saving" (click)="confirmDelete = true">Delete</button>
-    </div>
-    <div id="otherButtons">
-        <button mat-button [disabled]="saving" [mat-dialog-close]="">Close</button>
-        <button mat-raised-button color="primary" [disabled]="saving" (click)="updateReroute()">Save</button>
-    </div>
+  <div id="deleteButtons">
+    <button *ngIf="confirmDelete" mat-button color="warn" [disabled]="saving" (click)="deleteReroute()">Confirm Delete</button>
+    <button *ngIf="!confirmDelete" mat-button color="warn" [disabled]="saving" (click)="confirmDelete = true">Delete</button>
+  </div>
+  <div id="otherButtons">
+    <button mat-button [disabled]="saving" [mat-dialog-close]="">Close</button>
+    <button mat-raised-button color="primary" [disabled]="saving" (click)="updateReroute()">Save</button>
+  </div>
 </mat-dialog-actions>

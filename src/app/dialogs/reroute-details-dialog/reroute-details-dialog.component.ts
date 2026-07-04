@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, ViewChild, OnInit } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogTitle,
@@ -41,16 +41,23 @@ import { LoadingComponent } from '../../loading/loading.component';
   templateUrl: './reroute-details-dialog.component.html',
   styleUrl: './reroute-details-dialog.component.css',
 })
-export class RerouteDetailsDialogComponent {
-  @ViewChild('canvas', { static: false })
-  canvas!: ElementRef;
+export class RerouteDetailsDialogComponent implements OnInit {
+  @ViewChild('canvas', { static: false }) canvas!: ElementRef;
+
   loading: boolean = true;
   saving: boolean = false;
-  edit: boolean = false;
   reroute: any = {};
   config: Options = {};
   shortURL: string = '';
+  qrURL: string = '';
   confirmDelete: boolean = false;
+
+  // Analytics
+  scans: any[] = [];
+  qrScans: number = 0;
+  linkScans: number = 0;
+  chartBars: { date: string; count: number; height: number }[] = [];
+  peakDay: string = '';
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
@@ -61,31 +68,74 @@ export class RerouteDetailsDialogComponent {
     private clipboard: Clipboard,
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.loading = true;
     const rerouteId = this.data.id;
 
-    this.supabase.getReroute(rerouteId).then(async (reroute: any) => {
-      this.reroute = reroute[0];
-      this.shortURL = 'https://grn.ink/g/' + this.reroute.id;
+    const [reroute, scans] = await Promise.all([
+      this.supabase.getReroute(rerouteId),
+      this.supabase.getScansForReroute(rerouteId)
+    ]);
 
-      this.config = {
-        /* width: 500,
-        height: 500, */
-        image:
-          this.data.subType == 'free'
-            ? '../../assets/greenink.png'
-            : (this.reroute.icon ?? ''),
-        data: this.shortURL,
-        margin: 5,
-        dotsOptions: {
-          color: this.reroute.color ?? '#50D139',
-          type: 'rounded',
-        },
-      };
-      await this.qrcode.create(this.config, this.canvas.nativeElement);
-      this.loading = false;
+    this.reroute = (reroute as any[])[0];
+    this.scans = scans as any[];
+    this.shortURL = 'https://grn.ink/g/' + this.reroute.id;
+    this.qrURL = this.shortURL + '?ref=qr';
+
+    this.processAnalytics();
+
+    this.config = {
+      image: this.data.subType == 'free'
+        ? '../../assets/greenink.png'
+        : (this.reroute.icon ?? ''),
+      data: this.qrURL,
+      margin: 5,
+      dotsOptions: {
+        color: this.reroute.color ?? '#50D139',
+        type: 'rounded',
+      },
+    };
+
+    await this.qrcode.create(this.config, this.canvas.nativeElement);
+    this.loading = false;
+  }
+
+  processAnalytics() {
+    // QR vs link counts
+    this.qrScans = this.scans.filter(s => s.method === 'qr').length;
+    this.linkScans = this.scans.filter(s => s.method === 'link').length;
+
+    // Build last 30 days buckets
+    const days = 30;
+    const buckets: Record<string, number> = {};
+    for (let i = days - 1; i >= 0; i--) {
+      const d = new Date();
+      d.setDate(d.getDate() - i);
+      const key = d.toISOString().split('T')[0];
+      buckets[key] = 0;
+    }
+
+    this.scans.forEach(scan => {
+      const key = new Date(scan.scanned_at).toISOString().split('T')[0];
+      if (key in buckets) buckets[key]++;
     });
+
+    const counts = Object.values(buckets);
+    const max = Math.max(...counts, 1);
+
+    this.chartBars = Object.entries(buckets).map(([date, count]) => ({
+      date,
+      count,
+      height: Math.round((count / max) * 100)
+    }));
+
+    // Peak day
+    const peak = Object.entries(buckets).sort((a, b) => b[1] - a[1])[0];
+    if (peak && peak[1] > 0) {
+      this.peakDay = new Date(peak[0]).toLocaleDateString('en-US', {
+        month: 'short', day: 'numeric'
+      });
+    }
   }
 
   updateReroute() {
@@ -117,10 +167,7 @@ export class RerouteDetailsDialogComponent {
   }
 
   saveImage() {
-    this.qrcode.download(
-      this.canvas.nativeElement,
-      this.reroute.name + '-greenink.png',
-    );
+    this.qrcode.download(this.canvas.nativeElement, this.reroute.name + '-greenink.png');
   }
 
   copyURL() {

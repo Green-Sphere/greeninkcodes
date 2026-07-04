@@ -184,4 +184,17 @@ export class SupabaseService {
       if (data) resolve(data[0].route);
     });
   }
+
+  async getScansForReroute(rerouteId: string) {
+  return new Promise(async (resolve, reject) => {
+    const { data, error } = await supabase
+      .from('scans')
+      .select('scanned_at, method')
+      .eq('reroute_id', rerouteId)
+      .order('scanned_at', { ascending: true });
+
+    if (error) reject(error);
+    else resolve(data ?? []);
+  });
+}
 }
