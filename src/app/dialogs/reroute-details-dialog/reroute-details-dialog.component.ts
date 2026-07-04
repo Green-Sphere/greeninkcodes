@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, ViewChild, OnInit } from '@angular/core';
+import { Component, ElementRef, Inject, ViewChild, OnInit, ChangeDetectorRef } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogTitle,
@@ -51,8 +51,6 @@ export class RerouteDetailsDialogComponent implements OnInit {
   shortURL: string = '';
   qrURL: string = '';
   confirmDelete: boolean = false;
-
-  // Analytics
   scans: any[] = [];
   qrScans: number = 0;
   linkScans: number = 0;
@@ -66,6 +64,7 @@ export class RerouteDetailsDialogComponent implements OnInit {
     private qrcode: NgxQrcodeStylingService,
     private dialogRef: MatDialogRef<RerouteDetailsDialogComponent>,
     private clipboard: Clipboard,
+    private cdr: ChangeDetectorRef  // add this
   ) {}
 
   async ngOnInit() {
@@ -82,8 +81,6 @@ export class RerouteDetailsDialogComponent implements OnInit {
     this.shortURL = 'https://grn.ink/g/' + this.reroute.id;
     this.qrURL = this.shortURL + '?ref=qr';
 
-    this.processAnalytics();
-
     this.config = {
       image: this.data.subType == 'free'
         ? '../../assets/greenink.png'
@@ -96,8 +93,14 @@ export class RerouteDetailsDialogComponent implements OnInit {
       },
     };
 
-    await this.qrcode.create(this.config, this.canvas.nativeElement);
+    this.processAnalytics();
+
+    // Set loading false and let Angular render the template first
     this.loading = false;
+    this.cdr.detectChanges();  // force template to render #canvas
+
+    // Now canvas exists in the DOM
+    await this.qrcode.create(this.config, this.canvas.nativeElement);
   }
 
   processAnalytics() {
